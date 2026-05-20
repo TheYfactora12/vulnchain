@@ -1,0 +1,39 @@
+# VulnChain DPO Training Configuration
+# Run from best SFT checkpoint
+
+model:
+  sft_checkpoint: "./outputs/sft_best"   # Path to best SFT checkpoint
+  load_in_4bit: true
+  max_seq_length: 4096
+
+dpo:
+  beta: 0.1                # KL penalty — lower = closer to SFT; try 0.05, 0.1, 0.2
+  loss_type: "sigmoid"     # Standard DPO; try "ipo" for IPO variant
+  max_prompt_length: 1024
+  max_length: 2048
+
+training:
+  output_dir: "./outputs/dpo_v1"
+  num_train_epochs: 1      # DPO typically needs fewer epochs than SFT
+  per_device_train_batch_size: 2
+  gradient_accumulation_steps: 8
+  learning_rate: 5.0e-5    # Lower than SFT
+  lr_scheduler_type: "cosine"
+  warmup_ratio: 0.1
+  bf16: true
+  logging_steps: 10
+  eval_steps: 50
+  save_steps: 100
+  report_to: "wandb"
+
+data:
+  preference_file: "data/generated/preference_pairs.jsonl"
+  # Format: {"prompt": str, "chosen": str, "rejected": str}
+
+wandb:
+  project: "vulnchain"
+  run_name: "dpo-v1-beta0.1"
+  tags:
+    - "dpo"
+    - "alignment"
+    - "beta-0.1"

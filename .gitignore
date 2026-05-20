@@ -1,0 +1,52 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+*.egg
+
+# Environments
+.env
+.venv
+env/
+venv/
+
+# Jupyter
+.ipynb_checkpoints
+*.ipynb_checkpoints/
+
+# Model weights and checkpoints (large files)
+outputs/
+*.bin
+*.safetensors
+*.pt
+*.pth
+checkpoints/
+runs/
+
+# Generated data (not for public release)
+data/generated/
+experiments/logs/
+
+# Weights & Biases
+wandb/
+
+# API keys
+*.env
+.env.*
+secrets.yaml
+api_keys.txt
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
